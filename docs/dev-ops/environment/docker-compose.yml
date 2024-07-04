@@ -45,7 +45,7 @@ services:
       mysql:
         condition: service_healthy
     ports:
-      - "9090:9090"
+      - "7397:7397"
     links:
       - mysql
     volumes:
@@ -55,7 +55,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/xxl_job?serverTimezone=UTC&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Shanghai
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=123456
-      - SERVER_PORT=9090
+      - SERVER_PORT=7397
     networks:
       - my-network
 

@@ -1,5 +1,5 @@
 spring:
-  config:
-    name: xfg-frame-archetype-std-app
+  application:
+    name: scaffold
   profiles:
     active: dev

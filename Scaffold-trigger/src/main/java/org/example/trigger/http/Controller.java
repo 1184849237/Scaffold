@@ -1,5 +1,6 @@
 package org.example.xfg.frame.trigger.http;
 
+import com.alibaba.fastjson.JSONObject;
 import org.example.types.common.Constants;
 import org.example.types.model.Response;
 import lombok.extern.slf4j.Slf4j;

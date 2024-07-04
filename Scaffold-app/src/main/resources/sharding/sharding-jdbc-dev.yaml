@@ -7,9 +7,9 @@ dataSources:
   ds_0:
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
-    jdbcUrl: jdbc:mysql://127.0.0.1:13306/xfg_dev_tech_db_00?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=true
+    jdbcUrl: jdbc:mysql://150.158.143.191:3306/word_db_00?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=true
     username: root
-    password: 123456
+    password: zpc
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
@@ -19,9 +19,9 @@ dataSources:
   ds_1:
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
-    jdbcUrl: jdbc:mysql://127.0.0.1:13306/xfg_dev_tech_db_01?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=true
+    jdbcUrl: jdbc:mysql://150.158.143.191:3306/word_db_01?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=true
     username: root
-    password: 123456
+    password: zpc
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
@@ -33,7 +33,7 @@ rules:
     # 库的路由
     defaultDatabaseStrategy:
       standard:
-        shardingColumn: user_id
+        shardingColumn: id
         shardingAlgorithmName: database_inline
     # 表的路由
     tables:
@@ -41,7 +41,7 @@ rules:
         actualDataNodes: ds_$->{0..1}.user_order_$->{0..3}
         tableStrategy:
           standard:
-            shardingColumn: user_id
+            shardingColumn: id
             shardingAlgorithmName: user_order_inline
     # 路由算法
     shardingAlgorithms:
@@ -49,13 +49,13 @@ rules:
       database_inline:
         type: INLINE
         props:
-          algorithm-expression: ds_$->{Math.abs(user_id.hashCode()) % 2}
+          algorithm-expression: ds_$->{Math.abs(id.hashCode()) % 2}
 
       # 表-路由算法 4是一个库里，表的数量。4 - 1 为了获得 011 这样的二进制值。不推荐 user_order_$->{Math.abs(user_id.hashCode()) % 2} 作为表的路由
       user_order_inline:
         type: INLINE
         props:
-          algorithm-expression: user_order_$->{(user_id.hashCode() ^ (user_id.hashCode()) >>> 16) & (4 - 1)}
+          algorithm-expression: user_order_$->{(id.hashCode() ^ (id.hashCode()) >>> 16) & (4 - 1)}
 
 props:
   # 是否在日志中打印 SQL。
