@@ -1,6 +1,9 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
+    <inspection_tool class="AutoCloseableResource" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="METHOD_MATCHER_CONFIG" value="java.util.Formatter,format,java.io.Writer,append,com.google.common.base.Preconditions,checkNotNull,org.hibernate.Session,close,java.io.PrintWriter,printf,java.io.PrintStream,printf,org.example.domain.obs.ObsUtil,downFile" />
+    </inspection_tool>
     <inspection_tool class="JavadocDeclaration" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ADDITIONAL_TAGS" value="Create,Date:,Description:,ClassName:" />
     </inspection_tool>
@@ -8,6 +11,15 @@
       <option name="isIgnoringEnabled" value="true" />
       <option name="ignoredModules">
         <list>
+          <option value="Scaffold-domain" />
+          <option value="Scaffold-domain" />
+          <option value="Scaffold-domain" />
+          <option value="Scaffold-domain" />
+          <option value="Scaffold-domain" />
+          <option value="Scaffold-domain" />
+          <option value="Scaffold-domain" />
+          <option value="Scaffold-domain" />
+          <option value="Scaffold-domain" />
           <option value="Scaffold-domain" />
           <option value="Scaffold-domain" />
           <option value="Scaffold-domain" />
@@ -24,6 +36,15 @@
           <option value="ch.qos.logback:logback-classic:1.2.12" />
           <option value="ch.qos.logback:logback-core:1.2.12" />
           <option value="com.thoughtworks.xstream:xstream:1.4.10" />
+          <option value="dom4j:dom4j:1.6.1" />
+          <option value="org.apache.tomcat.embed:tomcat-embed-core:9.0.75" />
+          <option value="org.apache.tomcat.embed:tomcat-embed-websocket:9.0.75" />
+          <option value="org.springframework:spring-web:5.3.27" />
+          <option value="org.springframework:spring-webmvc:5.3.27" />
+          <option value="com.baomidou:mybatis-plus-core:3.1.0" />
+          <option value="com.baomidou:mybatis-plus-extension:3.1.0" />
+          <option value="org.mybatis:mybatis:3.5.0" />
+          <option value="com.squareup.okio:okio:1.17.5" />
         </list>
       </option>
       <option name="ignoredReasons">
@@ -34,6 +55,15 @@
           <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="In progress" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
         </list>
       </option>
     </inspection_tool>

@@ -1,16 +1,19 @@
-package org.example.domain.utils;
+package org.example.domain.obs;
 
 import cn.hutool.core.util.StrUtil;
 import com.obs.services.ObsClient;
 import com.obs.services.model.*;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * @author Admin
@@ -49,20 +52,28 @@ public class ObsUtil {
         client = this.obsConfig.obsClient();
     }
 
-    public static void check(String fileName){
+    public static void check(String fileName) {
         String fileSuffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         if (!ObsUtil.hashSet.contains(fileSuffix)) {
             throw new RuntimeException("文件格式错误！");
         }
     }
 
+    public static String uploadFile(MultipartFile multipartFile) throws IOException {
+        ObsUtil.check(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        String fileName = multipartFile.getOriginalFilename();
+        String[] tokens = fileName.split("\\.(?=[^\\.]+$)");
+        String uploadName = System.currentTimeMillis() + "." + tokens[tokens.length - 1];
+        return uploadFile(uploadName, multipartFile.getBytes());
+    }
+
     public static String uploadFile(String fileName, byte[] data) {
         uploadBucketFile(config.getBucketName(), fileName, data.length, new ByteArrayInputStream(data));
-        return "https://zpc.obs.cn-east-3.myhuaweicloud.com/zpc/" + fileName;
+        return config.getObsUrl() + fileName;
     }
 
     public static String getAttachmentUrl(String fileName) {
-        return "https://zpc.obs.cn-east-3.myhuaweicloud.com/zpc/" + fileName;
+        return config.getObsUrl() + fileName;
     }
 
     /**
@@ -86,9 +97,9 @@ public class ObsUtil {
      * 下载文件
      */
     public static InputStream downFile(String objectKey) {
+        objectKey = objectKey.replace(config.getObsUrl(), "");
         ObsObject object = client.getObject(config.getBucketName(), objectKey);
-        InputStream inputStream = object.getObjectContent();
-        return inputStream;
+        return object.getObjectContent();
     }
 
     /**

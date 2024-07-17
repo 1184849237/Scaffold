@@ -1,4 +1,4 @@
-package org.example.domain.word.model.entity;
+package org.example.domain.word.model.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -7,8 +7,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.example.domain.word.model.aggregate.WordModule;
-import org.example.domain.word.repository.WordModuleFormatDao;
+import org.example.domain.word.model.entity.WordModuleFormatPo;
+import org.example.domain.word.model.entity.WordModuleMsgPo;
+import org.example.types.validated.GroupAdd;
+import org.example.types.validated.GroupGenerate;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -20,21 +25,18 @@ import java.io.Serializable;
  * @since 2024-07-09
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class WordModuleMsgPo extends Model<WordModuleMsgPo> {
+public class WordModuleMsgVo implements Serializable{
 
-    private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.INPUT)
     private Long id;
     /**
      * key
      */
-    private String moduleId;
+    private Long moduleId;
     /**
      * key
      */
+    @NotNull(message = "替换key不能为空！", groups = {GroupAdd.class, GroupGenerate.class})
     private String moduleKey;
     /**
      * 值内容
@@ -44,6 +46,7 @@ public class WordModuleMsgPo extends Model<WordModuleMsgPo> {
     /**
      * 类型 0 文本 1图片 2 勾选 3 表格
      */
+    @NotNull(message = "替换类型不能为空！", groups = {GroupAdd.class, GroupGenerate.class})
     private WordModule moduleType;
 
     /**
@@ -54,12 +57,19 @@ public class WordModuleMsgPo extends Model<WordModuleMsgPo> {
     /**
      * 格式信息
      */
-    private transient WordModuleFormatPo wordModuleFormatPo;
+    @Valid
+    private  WordModuleFormatVo wordModuleFormatVo;
 
-
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
+    public WordModuleMsgPo toPo(){
+        return WordModuleMsgPo.builder()
+                .id(this.id)
+                .moduleId(this.moduleId)
+                .moduleKey(this.moduleKey)
+                .moduleValue(this.moduleValue)
+                .moduleType(this.moduleType)
+                .formatId(this.formatId)
+                .wordModuleFormatPo(this.wordModuleFormatVo.toPo())
+                .build();
     }
 
 }

@@ -1,11 +1,12 @@
-package org.example.domain.word.service.impl;
+package org.example.trigger.rpc;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.dubbo.config.annotation.DubboService;
+import org.example.api.WordModuleFormatService;
 import org.example.domain.obs.SnowFlakeUtil;
 import org.example.domain.word.model.entity.WordModuleFormatPo;
 import org.example.domain.word.model.vo.WordModuleFormatVo;
 import org.example.domain.word.repository.WordModuleFormatDao;
-import org.example.domain.word.service.WordModuleFormatService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

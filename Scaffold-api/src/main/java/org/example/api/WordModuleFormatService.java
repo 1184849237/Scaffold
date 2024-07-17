@@ -1,4 +1,4 @@
-package org.example.domain.word.service;
+package org.example.api;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;

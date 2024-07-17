@@ -1,4 +1,4 @@
-package com.lvzuan.meetmanager.validated;
+package org.example.types.validated;
 
 /**
  * @author Admin

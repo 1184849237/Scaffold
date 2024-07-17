@@ -1,4 +1,4 @@
-package com.lvzuan.meetmanager.exception;
+package org.example.types.exception;
 
 public class AccessLimitException extends RuntimeException {
     protected AccessLimitException() {

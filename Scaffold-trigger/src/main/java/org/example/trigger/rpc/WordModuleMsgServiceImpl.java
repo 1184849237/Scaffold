@@ -1,14 +1,14 @@
-package org.example.domain.word.service.impl;
+package org.example.trigger.rpc;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.dubbo.config.annotation.DubboService;
+import org.example.api.WordModuleFormatService;
+import org.example.api.WordModuleMsgService;
 import org.example.domain.obs.SnowFlakeUtil;
 import org.example.domain.word.model.entity.WordModuleMsgPo;
 import org.example.domain.word.model.vo.WordModuleFormatVo;
 import org.example.domain.word.model.vo.WordModuleMsgVo;
 import org.example.domain.word.repository.WordModuleMsgDao;
-import org.example.domain.word.service.WordModuleFormatService;
-import org.example.domain.word.service.WordModuleMsgService;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @Create by: 周鹏程
  * @Date: 2024/7/11 15:42
  */
-@Service
+@DubboService(version = "1.0.0", timeout = 450)
 @Transactional
 public class WordModuleMsgServiceImpl extends ServiceImpl<WordModuleMsgDao, WordModuleMsgPo> implements WordModuleMsgService {
 

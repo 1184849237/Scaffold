@@ -1,4 +1,4 @@
-package com.lvzuan.meetmanager.config;
+package org.example.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -13,12 +13,11 @@ import org.springframework.context.annotation.Configuration;
  * @Date: 2020/11/26 18:33
  */
 @Configuration
-@MapperScan({"com.lvzuan.meetmanager.mapper"})
+@MapperScan({"org.example.domain.word.repository"})
 public class MybatisPlusConfig {
 
     /**
      * 分页插件
-     * @return
      */
     @Bean
     public PaginationInterceptor paginationInterceptor() {

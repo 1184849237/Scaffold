@@ -1,4 +1,4 @@
-package com.lvzuan.meetmanager.aspect;
+package org.example.aspect;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;

@@ -20,7 +20,7 @@ public class XXLJob {
     @XxlJob("demoJobHandler")
     public void doJob() {
         // 可以在任务中，调用一些业务方法逻辑的实现，如定时扫描超时未支付订单为关单处理，恢复库存
-        log.info("执行任务 - XXL-Job - 01 发送一条MQ消息");
+        log.info("执行任务 - XXL-Job");
         // 发送MQ消息
         rocketmqTemplate.convertAndSend("xfg-mq", "我是测试消息");
     }

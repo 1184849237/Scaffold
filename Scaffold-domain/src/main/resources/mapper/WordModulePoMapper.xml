@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mybatis.mapper.WordModuleDao">
+<mapper namespace="org.example.domain.word.repository.WordModuleDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="mybatis.entity.WordModulePo">
+    <resultMap id="BaseResultMap" type="org.example.domain.word.model.entity.WordModulePo">
         <id column="id" property="id" />
         <result column="module_name" property="moduleName" />
+        <result column="model_id" property="modelId" />
+        <association property="wordModelPo" column="{ id = model_id}"
+                     javaType="org.example.domain.word.model.entity.WordModelPo"
+                     select="org.example.domain.word.repository.WordModelDao.queryById">
+        </association>
+        <collection property="wordModuleMsgPoList"
+                    column="{moduleId = id}"
+                    ofType="org.example.domain.word.model.entity.WordModuleMsgPo"
+                    select="org.example.domain.word.repository.WordModuleMsgDao.getMsgByModuleId"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, module_name
+        id, module_name,model_id
     </sql>
+
+
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from word_module
+    </select>
 
 </mapper>

@@ -1,6 +1,7 @@
-package com.lvzhuan.house.generation;
+package org.example.generation;
 
 
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -22,11 +23,11 @@ public class CodeGeneration {
     /**
      * 自动生成包地址  com.lvzhuan.house.base
      */
-    private static final String PACKAGE_PATH ="com.lvzhuan.house.core";
+    private static final String PACKAGE_PATH ="mybatis";
     /**
      * 自动生成对应表名
      */
-    private static final String TABLE_NAME = "LZ_HOUSE_PAY_STOP";
+    private static final String TABLE_NAME = "word_model";
 
     public static void main(String[] args) {
         AutoGenerator mpg = new AutoGenerator();
@@ -34,8 +35,8 @@ public class CodeGeneration {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("ZXL");
+        gc.setOutputDir(projectPath + "/Scaffold-app/src/main/resources");
+        gc.setAuthor("zhoupengcheng");
         gc.setOpen(false);
         gc.setBaseResultMap(true);
         gc.setBaseColumnList(true);
@@ -46,21 +47,21 @@ public class CodeGeneration {
         gc.setControllerName("%sController");
         gc.setServiceName("%sService");
         gc.setServiceImplName("%sServiceImpl");
-        gc.setMapperName("%sMapper");
+        gc.setMapperName("%sDao");
         gc.setXmlName("%sMapper");
+        gc.setEntityName("%sPo");
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-
-        dsc.setUrl("jdbc:oracle:thin:@118.195.146.177:1521:helowin");
-        dsc.setDriverName("oracle.jdbc.driver.OracleDriver");
-        dsc.setUsername("LZHOUSE");
-        dsc.setPassword("LZHOUSE");
+        dsc.setDbType(DbType.MYSQL);
+        dsc.setUrl("jdbc:mysql://150.158.143.191:3306/word_db_00?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=true");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
+        dsc.setUsername("root");
+        dsc.setPassword("zpc");
         mpg.setDataSource(dsc);
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        //strategy.setTablePrefix(new String[] { "sys_" });// 此处可以修改为您的表前缀
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
@@ -97,7 +98,7 @@ public class CodeGeneration {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
-                return projectPath + "/src/main/resources/mapper/"
+                return projectPath + "/Scaffold-app/src/main/resources/mybatis/mapper/"
                         + tableInfo.getEntityName() + "Mapper" + ".xml";
             }
         });

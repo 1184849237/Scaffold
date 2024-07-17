@@ -1,4 +1,4 @@
-package org.example.domain.word.service;
+package org.example.api;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -34,7 +34,7 @@ public interface WordModuleService extends IService<WordModulePo> {
      */
     void addModule(WordModuleVo wordModuleVo);
 
-    
+
     WordModulePo queryById(Long moduleId);
 
     /**

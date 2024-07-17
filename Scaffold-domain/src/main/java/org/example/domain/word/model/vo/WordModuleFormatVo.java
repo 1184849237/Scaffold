@@ -1,17 +1,16 @@
-package org.example.domain.word.model.entity;
+package org.example.domain.word.model.vo;
 
-import java.math.BigDecimal;
-
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-
-import java.io.Serializable;
-
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.example.domain.word.model.entity.WordModuleFormatPo;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -22,14 +21,9 @@ import lombok.experimental.Accessors;
  * @since 2024-07-10
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("word_module_format")
-public class WordModuleFormatPo extends Model<WordModuleFormatPo> {
+public class WordModuleFormatVo implements Serializable{
 
-    private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.INPUT)
     private Long id;
 
     private Long msgId;
@@ -73,10 +67,19 @@ public class WordModuleFormatPo extends Model<WordModuleFormatPo> {
      */
     private BigDecimal imgWidth;
 
-
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
+    public WordModuleFormatPo toPo() {
+        return WordModuleFormatPo.builder()
+                .id(this.id)
+                .msgId(this.msgId)
+                .blod(this.blod)
+                .fontName(this.fontName)
+                .fontColor(this.fontColor)
+                .fontSize(this.fontSize)
+                .lineSpacing(this.lineSpacing)
+                .firstLineIndent(this.firstLineIndent)
+                .imgHeight(this.imgHeight)
+                .imgWidth(this.imgWidth)
+                .build();
     }
 
 }

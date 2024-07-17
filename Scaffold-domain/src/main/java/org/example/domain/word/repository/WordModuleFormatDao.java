@@ -1,7 +1,11 @@
-package org.example.infrastructure.persistent.dao;
+package org.example.domain.word.repository;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.example.domain.word.model.entity.WordModuleFormatPO;
+import org.apache.ibatis.annotations.Mapper;
+import org.example.domain.word.model.entity.WordModuleFormatPo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,6 +15,8 @@ import org.example.domain.word.model.entity.WordModuleFormatPO;
  * @author zhoupengcheng
  * @since 2024-07-10
  */
-public interface WordModuleFormatDAO extends BaseMapper<WordModuleFormatPO> {
+@Mapper
+public interface WordModuleFormatDao extends BaseMapper<WordModuleFormatPo> {
 
+    WordModuleFormatPo queryListByMsgId(Long msgId);
 }

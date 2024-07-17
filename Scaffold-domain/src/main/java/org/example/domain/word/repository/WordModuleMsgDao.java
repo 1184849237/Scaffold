@@ -1,7 +1,11 @@
-package org.example.infrastructure.persistent.dao;
+package org.example.domain.word.repository;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.example.domain.word.model.entity.WordModuleMsgPO;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.example.domain.word.model.entity.WordModuleMsgPo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,6 +15,8 @@ import org.example.domain.word.model.entity.WordModuleMsgPO;
  * @author zhoupengcheng
  * @since 2024-07-09
  */
-public interface WordModuleMsgDao extends BaseMapper<WordModuleMsgPO> {
+@Mapper
+public interface WordModuleMsgDao extends BaseMapper<WordModuleMsgPo> {
 
+    List<WordModuleMsgPo> getMsgByModuleId(Long moduleId);
 }

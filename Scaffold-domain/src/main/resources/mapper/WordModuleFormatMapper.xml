@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mybatis.mapper.WordModuleFormatDAO">
+<mapper namespace="org.example.domain.word.repository.WordModuleFormatDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="org.example.domain.word.model.entity.WordModuleFormatPO">
+    <resultMap id="BaseResultMap" type="org.example.domain.word.model.entity.WordModuleFormatPo">
         <id column="id" property="id" />
+        <result column="msg_id" property="msgId" />
         <result column="blod" property="blod" />
         <result column="font_name" property="fontName" />
         <result column="font_color" property="fontColor" />
@@ -19,5 +20,10 @@
     <sql id="Base_Column_List">
         id, blod, font_name, font_color, font_size, line_spacing, first_line_indent, img_height, img_width
     </sql>
+    <select id="queryListByMsgId" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM word_module_format
+    </select>
 
 </mapper>

@@ -1,16 +1,22 @@
-package org.example.domain.word.service.impl;
+package org.example.trigger.rpc;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.dubbo.config.annotation.DubboService;
+import org.example.api.WordModelService;
 import org.example.domain.obs.ObsUtil;
 import org.example.domain.word.model.entity.WordModelPo;
 import org.example.domain.word.model.vo.WordModelVo;
 import org.example.domain.word.repository.WordModelDao;
-import org.example.domain.word.service.WordModelService;
-import org.springframework.stereotype.Service;
+import org.example.types.validated.GroupAdd;
+import org.example.types.validated.GroupUpdate;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -23,24 +29,33 @@ import java.util.Objects;
  * @author zhoupengcheng
  * @since 2024-07-15
  */
-@Service
+@DubboService(version = "1.0.0", timeout = 450,validation = "true")
 @Transactional
 public class WordModelServiceImpl extends ServiceImpl<WordModelDao, WordModelPo> implements WordModelService {
 
     @Override
-    public void uploadModel(WordModelVo wordModelVo) throws IOException {
+    public void uploadModel(@Validated(GroupAdd.class) WordModelVo wordModelVo) throws IOException {
         MultipartFile modelFile = wordModelVo.getModelFile();
-        //校验文件后缀
-        ObsUtil.check(Objects.requireNonNull(modelFile.getOriginalFilename()));
-        String fileName = modelFile.getOriginalFilename();
-        String[] tokens = fileName.split("\\.(?=[^\\.]+$)");
-        String uploadName = System.currentTimeMillis() + "." + tokens[tokens.length - 1];
-        //调用obs 获得文件url
-        String url = ObsUtil.uploadFile(uploadName, modelFile.getBytes());
+        //文件上传并存入数据库
         WordModelPo wordModelPo = WordModelPo.builder()
                 .modelName(wordModelVo.getModelName())
-                .modelUrl(url).build();
+                .modelUrl(ObsUtil.uploadFile(modelFile)).build();
         wordModelPo.insert();
+    }
+
+    @Override
+    public void updateModel(@Validated(GroupUpdate.class) WordModelVo wordModelVo) throws IOException {
+        WordModelPo wordModelPo = baseMapper.queryById(wordModelVo.getId());
+        if(ObjectUtil.isEmpty(wordModelPo)){
+            throw new RuntimeException("未查询到模板信息");
+        }
+        if(!StrUtil.isEmpty(wordModelVo.getModelName())){
+            wordModelPo.setModelName(wordModelVo.getModelName());
+        }
+        if(!ObjectUtil.isEmpty(wordModelVo.getModelFile())){
+            wordModelPo.setModelUrl(ObsUtil.uploadFile(wordModelVo.getModelFile()));
+        }
+        wordModelPo.updateById();
     }
 
     @Override

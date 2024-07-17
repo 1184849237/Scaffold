@@ -1,7 +1,9 @@
-package mybatis.mapper;
+package org.example.domain.word.repository;
 
-import mybatis.entity.WordModelPo;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.example.domain.word.model.entity.WordModelPo;
 
 /**
  * <p>
@@ -11,6 +13,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author zhoupengcheng
  * @since 2024-07-15
  */
+@Mapper
 public interface WordModelDao extends BaseMapper<WordModelPo> {
 
+    WordModelPo queryById(Long id);
 }

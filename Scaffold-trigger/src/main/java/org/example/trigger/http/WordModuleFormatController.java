@@ -1,4 +1,4 @@
-package mybatis.controller;
+package org.example.trigger.http;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;

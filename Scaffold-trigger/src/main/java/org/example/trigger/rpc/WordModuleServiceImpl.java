@@ -1,11 +1,15 @@
-package org.example.domain.word.service.impl;
+package org.example.trigger.rpc;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.dubbo.common.Experimental;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.poi.xwpf.usermodel.*;
+import org.example.api.WordModuleMsgService;
+import org.example.api.WordModuleService;
 import org.example.domain.obs.ObsUtil;
 import org.example.domain.obs.SnowFlakeUtil;
 import org.example.domain.utils.CustomXWPFDocument;
@@ -16,13 +20,15 @@ import org.example.domain.word.model.entity.WordModulePo;
 import org.example.domain.word.model.vo.WordModuleMsgVo;
 import org.example.domain.word.model.vo.WordModuleVo;
 import org.example.domain.word.repository.WordModuleDao;
-import org.example.domain.word.service.WordModuleMsgService;
-import org.example.domain.word.service.WordModuleService;
-import org.springframework.stereotype.Service;
+import org.example.types.validated.GroupAdd;
+import org.example.types.validated.GroupGenerate;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.*;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +41,7 @@ import java.util.stream.Collectors;
  * @Create by: 周鹏程
  * @Date: 2024/7/11 15:45
  */
-@Service
+@DubboService(version = "1.0.0", timeout = 450,validation = "true")
 @Transactional(rollbackFor = Exception.class)
 public class WordModuleServiceImpl extends ServiceImpl<WordModuleDao, WordModulePo> implements WordModuleService {
 
@@ -50,8 +56,7 @@ public class WordModuleServiceImpl extends ServiceImpl<WordModuleDao, WordModule
     }
 
     @Override
-    public void addModule(WordModuleVo wordModuleVo) {
-        //TODO check
+    public void addModule(@Validated(GroupAdd.class) WordModuleVo wordModuleVo) {
         //插入word替换信息
         List<WordModuleMsgVo> wordModuleMsgVos = wordModuleVo.getWordModuleMsgVos();
         wordModuleMsgVos.forEach(e->e.setModuleId(SnowFlakeUtil.nextId()));
@@ -65,19 +70,19 @@ public class WordModuleServiceImpl extends ServiceImpl<WordModuleDao, WordModule
 
 
     @Override
-    public WordModulePo queryById(Long moduleId) {
+    public WordModulePo queryById(@NotNull(message = "写入模板id不能为空") Long moduleId) {
         return baseMapper.queryById(moduleId);
     }
 
     @Override
-    public void generateWordModuleById(Long moduleId, HttpServletResponse response) throws Exception {
+    public void generateWordModuleById(@NotNull(message = "写入模板id不能为空")Long moduleId, HttpServletResponse response) throws Exception {
         WordModulePo wordModulePo = baseMapper.queryById(moduleId);
         ByteArrayInputStream byteArrayInputStream = makeWord(wordModulePo);
         FileDownloadUtils.fileDownload(byteArrayInputStream,wordModulePo.getModuleName(),response);
     }
 
     @Override
-    public void generateWordModuleWithVo(WordModuleVo wordModuleVo, HttpServletResponse response) throws Exception {
+    public void generateWordModuleWithVo(@Validated(GroupGenerate.class) WordModuleVo wordModuleVo, HttpServletResponse response) throws Exception {
         WordModulePo wordModulePo = wordModuleVo.toPo();
         ByteArrayInputStream byteArrayInputStream = makeWord(wordModulePo);
         FileDownloadUtils.fileDownload(byteArrayInputStream,wordModulePo.getModuleName(),response);

@@ -1,2 +1,0 @@
-24-07-08.16:57:06.589 [Thread-32       ] WARN  HttpClientManager      - [HttpClientBeanFactory] Start destroying NacosRestTemplate
-24-07-08.16:57:06.657 [Thread-32       ] WARN  HttpClientManager      - [HttpClientBeanFactory] Destruction of the end

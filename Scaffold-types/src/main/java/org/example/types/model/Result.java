@@ -1,8 +1,7 @@
-package com.lvzuan.meetmanager.constant;
+package org.example.types.model;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.example.types.common.Constants;
 
 import java.io.Serializable;
 
@@ -13,78 +12,74 @@ import java.io.Serializable;
  * @Create by: 周鹏程
  */
 @Data
-@ApiModel("统一api响应结果封装")
 public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     /**
      * 状态编码
      */
-    @ApiModelProperty(value = "状态编码")
-    private int code;
+    private String code;
     /**
      * 信息
      */
-    @ApiModelProperty(value = "消息")
     private String msg;
     /**
      * 数据
      */
-    @ApiModelProperty(value = "数据")
     private T data;
 
-    private Result(int code, String msg) {
+    private Result(String code, String msg) {
         this.code = code;
         this.data = null;
         this.msg = msg;
     }
 
-    private Result(int code, T data, String msg) {
+    private Result(String code, T data, String msg) {
         this.code = code;
         this.data = data;
         this.msg = msg;
     }
 
     public static <T> Result<T> data(T data) {
-        return data(data, ResultEnum.SUCCESS.msg);
+        return data(data, Constants.ResponseCode.SUCCESS.getInfo());
     }
 
     public static <T> Result<T> data(T data, String msg) {
-        return data(ResultEnum.SUCCESS.code, data, msg);
+        return data(Constants.ResponseCode.SUCCESS.getCode(), data, msg);
     }
 
-    public static <T> Result data(int code, T data, String msg) {
+    public static <T> Result data(String code, T data, String msg) {
         return new Result(code, data, msg);
     }
 
     public static <T> Result<T> success() {
-        return success(ResultEnum.SUCCESS.msg);
+        return success(Constants.ResponseCode.SUCCESS.getInfo());
     }
 
     public static <T> Result<T> success(String msg) {
-        return new Result<>(ResultEnum.SUCCESS.code, msg);
+        return new Result<>(Constants.ResponseCode.SUCCESS.getCode(), msg);
     }
 
     public static <T> Result<T> fail() {
-        return fail(ResultEnum.FAIL.msg);
+        return fail(Constants.ResponseCode.UN_ERROR.getInfo());
     }
 
     public static <T> Result<T> fail(String msg) {
-        return fail(ResultEnum.FAIL.code, msg);
+        return fail(Constants.ResponseCode.UN_ERROR.getCode(), msg);
     }
 
-    public static <T> Result<T> fail(int code, String msg) {
+    public static <T> Result<T> fail(String code, String msg) {
         return new Result<>(code, msg);
     }
     public static <T> Result<T> error() {
-        return new Result<>(ResultEnum.INTERNAL_SERVER_ERROR.code, ResultEnum.INTERNAL_SERVER_ERROR.msg);
+        return new Result<>(Constants.ResponseCode.UN_ERROR.getCode(), Constants.ResponseCode.UN_ERROR.getInfo());
     }
     public static <T> Result<T> error(String msg) {
-        return new Result<>(ResultEnum.INTERNAL_SERVER_ERROR.code, msg);
+        return new Result<>(Constants.ResponseCode.UN_ERROR.getCode(), msg);
     }
 
-    public static <T> Result<T> error(ResultEnum resultEnum) {
-        return new Result<>(resultEnum.code, resultEnum.msg);
+    public static <T> Result<T> error(Constants.ResponseCode responseCode) {
+        return new Result<>(responseCode.getCode(), responseCode.getInfo());
     }
 
     public static <T> Result<T> status(boolean flag) {

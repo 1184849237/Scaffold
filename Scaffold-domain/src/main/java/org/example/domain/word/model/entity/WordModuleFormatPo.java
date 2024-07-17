@@ -1,34 +1,40 @@
-package mybatis.entity;
+package org.example.domain.word.model.entity;
 
 import java.math.BigDecimal;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author zhoupengcheng
  * @since 2024-07-10
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("word_module_format")
-public class WordModuleFormatPO extends Model<WordModuleFormatPO> {
+public class WordModuleFormatPo extends Model<WordModuleFormatPo> {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.INPUT)
+    @TableId(value = "id", type = IdType.INPUT)
     private Long id;
 
+    private Long msgId;
     /**
      * 字体加粗
      */
@@ -69,24 +75,6 @@ public class WordModuleFormatPO extends Model<WordModuleFormatPO> {
      */
     private BigDecimal imgWidth;
 
-
-    public static final String ID = "id";
-
-    public static final String BLOD = "blod";
-
-    public static final String FONT_NAME = "font_name";
-
-    public static final String FONT_COLOR = "font_color";
-
-    public static final String FONT_SIZE = "font_size";
-
-    public static final String LINE_SPACING = "line_spacing";
-
-    public static final String FIRST_LINE_INDENT = "first_line_indent";
-
-    public static final String IMG_HEIGHT = "img_height";
-
-    public static final String IMG_WIDTH = "img_width";
 
     @Override
     protected Serializable pkVal() {

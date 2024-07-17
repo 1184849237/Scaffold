@@ -1,4 +1,4 @@
-package org.example.domain.word.service;
+package org.example.api;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.example.domain.word.model.entity.WordModelPo;
@@ -22,6 +22,8 @@ public interface WordModelService extends IService<WordModelPo> {
      * @param wordModelVo
      */
     void uploadModel(WordModelVo wordModelVo) throws IOException;
+
+    void updateModel(WordModelVo wordModelVo) throws IOException;
 
     /**
      * 列表查询模板文件
