@@ -1,0 +1,9 @@
+24-07-17.18:02:01.438 [Thread-49       ] WARN  HttpClientManager      - [HttpClientBeanFactory] Start destroying NacosRestTemplate
+24-07-17.18:02:01.479 [Thread-49       ] WARN  HttpClientManager      - [HttpClientBeanFactory] Destruction of the end
+24-07-17.18:02:48.912 [main            ] WARN  ClassPathMapperScanner - Skipping MapperFactoryBean with name 'wordModelDao' and 'org.example.domain.word.repository.WordModelDao' mapperInterface. Bean already defined with the same name!
+24-07-17.18:02:48.912 [main            ] WARN  ClassPathMapperScanner - Skipping MapperFactoryBean with name 'wordModuleDao' and 'org.example.domain.word.repository.WordModuleDao' mapperInterface. Bean already defined with the same name!
+24-07-17.18:02:48.912 [main            ] WARN  ClassPathMapperScanner - Skipping MapperFactoryBean with name 'wordModuleFormatDao' and 'org.example.domain.word.repository.WordModuleFormatDao' mapperInterface. Bean already defined with the same name!
+24-07-17.18:02:48.912 [main            ] WARN  ClassPathMapperScanner - Skipping MapperFactoryBean with name 'wordModuleMsgDao' and 'org.example.domain.word.repository.WordModuleMsgDao' mapperInterface. Bean already defined with the same name!
+24-07-17.18:02:48.912 [main            ] WARN  ClassPathMapperScanner - No MyBatis mapper was found in '[org.example.domain.word.repository]' package. Please check your configuration.
+24-07-17.18:02:53.358 [main            ] WARN  ObsClient              - [OBS SDK Version=3.20.6.2];[Endpoint=https://obs.cn-east-3.myhuaweicloud.com:443/];[Access Mode=Virtul Hosting]
+24-07-17.18:02:53.937 [main            ] WARN  ObsClient              - [OBS SDK Version=3.20.6.2];[Endpoint=https://obs.cn-east-3.myhuaweicloud.com:443/];[Access Mode=Virtul Hosting]
